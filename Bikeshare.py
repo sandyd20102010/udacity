@@ -24,19 +24,19 @@ def get_filters():
     print('Hello! Let\'s explore some US bikeshare data!')
     # TO DO: get user input for city (chicago, new york city,               washington). HINT: Use a while loop to handle invalid inputs
     while True:
-        city = input('Enter name of city, Chicago, New York city or           Washington to analyze: \n> ').lower()
+        city = input('Enter name of city, Chicago, New York city or Washington to analyze: \n> ').lower()
         if city in cities:
             break
 
     # TO DO: get user input for month (all, january, february, ... ,       june)
     while True:
-        month = input("Enter month to filter by, or 'all' to apply no     month filter:  \n> ").lower()
+        month = input("Enter month to filter by, or 'all' to apply no month filter:  \n> ").lower()
         if month in months:
             break
 
     # TO DO: get user input for day of week (all, monday, tuesday, ...      sunday)
     while True:
-        day = input("Enter the day of the week to filter by, or 'all'     to apply no day filter: \n> ").lower()
+        day = input("Enter the day of the week to filter by, or 'all' to apply no day filter: \n> ").lower()
         if day in days:
             break
     
@@ -66,21 +66,19 @@ def load_data(city, month, day):
     df['day_of_week'] = df['Start Time'].dt.weekday_name
     
     # filter by month if applicable
-    while True:
-        if month != "all":
-            months = ['january', 'february', 'march', 'april', 'may', 'june']
-     # use the index of the months list to get the corresponding             int
-        month = months.index(month) + 1
+    if month != "all":
+        months = ['january', 'february', 'march', 'april', 'may', 'june']
+    # use the index of the months list to get the corresponding             int
+    month = months.index(month) + 1
             
     # filter by month to create the new dataframe
-        df = df[df['month'] == month]
+    df = df[df['month'] == month]
     
     # filter by day of week if applicable
-    while True:
-        if day != 'all':
+    if day != 'all':
                         
     # filter by day of week to create the new dataframe
-            df = df[df['day_of_week'] == day.title()]
+        df = df[df['day_of_week'] == day.title()]
     
     
     return df
@@ -93,15 +91,16 @@ def time_stats(df):
 
     # TO DO: display the most common month
     popular_month = df['month'].mode()[0]
-    print('The most common month is ' + popular_month)
+    print('The most common month is ', popular_month)
 
     # TO DO: display the most common day of week
     popular_day_of_week = df['day_of_week'].mode()[0]
-    print('The most common day of the week is ' + popular_day_of_week)
+    print('The most common day of the week is ', popular_day_of_week)
 
     # TO DO: display the most common start hour
+    df['hour'] = df['Start Time'].dt.hour
     popular_hour = df['hour'].mode()[0]
-    print('The most common hour is ' + popular_hour)
+    print('The most common hour is ', popular_hour)
 
     print("\nThis took %s seconds." % (time.time() - start_time))
     print('-'*40)
