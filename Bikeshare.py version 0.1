@@ -148,32 +148,43 @@ def trip_duration_stats(df):
 
 def user_stats(df):
     """Displays statistics on bikeshare users."""
-
+    
     print('\nCalculating User Stats...\n')
     start_time = time.time()
+ 
+# TO DO: Display counts of user types
+    if 'User Type' in df.columns:
+        user_type = df['User Type'].value_counts()
 
-    # TO DO: Display counts of user types
-    print('User Type Stats:')
-    print(df['User Type'].value_counts())
+        print('The full amount of each user type is {}.'.format(user_type))
+  
+# TO DO: Display counts of gender
+   
+    try:
+        gender = df['Gender'].value_counts()
 
-    # TO DO: Display counts of gender
-    print('Gender Stats:')
-    print(df['Gender'].value_counts())
+        print('The total in each gender is {}.'.format(gender))
 
-    # TO DO: Display earliest, most recent, and most common year of birth
-    print('Birth Year Data:')
-    
-    earliest_year = df['Birth Year'].min()
-    print('Earliest Year:',earliest_year)
+    except:
 
-    most_recent_year = df['Birth Year'].max()
-    print('Most Recent Year:',most_recent_year)
+        print('There is no gender information for Washington.\n')
 
-    most_common_year = df['Birth Year'].mode()[0]
-    print('Most Common Year:',most_common_year)
+# TO DO: Display earliest, most recent, and most common year of birth           
+    try:
+        earliest_year_of_birth = min(df['Birth Year'])
+        print('The earliest birth year is {}.'.format(earliest_year_of_birth))
 
-    print("\nThis took %s seconds." % (time.time() - start_time))
-    print('-'*40)
+        most_recent_year_of_birth = max(df['Birth Year'])
+        print('The most recent birth year is {}.'.format(most_recent_year_of_birth))
+
+        most_common_year_of_birth = df['Birth Year'].mode()
+        print('The most common birth year is {}.'.format(most_common_year_of_birth))
+
+    except:
+        print('There is no birth year information for Washington.')
+               
+        print("\nThis took %s seconds." % (time.time() - start_time))
+        print('-'*40)
 
 def display_data(df):
     """Displays raw data when asked for."""
@@ -208,3 +219,4 @@ def main():
 
 if __name__ == "__main__":
 	main()
+
